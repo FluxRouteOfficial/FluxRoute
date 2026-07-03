@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    name: Verify monorepo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install root workspaces
+        run: npm ci
+
+      - name: Install landing app
+        working-directory: fluxroute-landing
+        run: npm ci
+
+      - name: Lint workspaces
+        run: npm run lint
+
+      - name: Typecheck workspaces
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Build workspaces
+        run: npm run build
+
+      - name: Build landing
+        working-directory: fluxroute-landing
+        run: npm run build
+
+      - name: Audit root dependencies
+        run: npm audit --audit-level=high
+        continue-on-error: true
+
+      - name: Audit landing dependencies
+        working-directory: fluxroute-landing
+        run: npm audit --audit-level=high
+        continue-on-error: true

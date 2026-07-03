@@ -19,3 +19,5 @@ apps/api/keys/
 
 fix_pg*.sh
 setup_pg.sql
+desktop.ini
+*.vercel.*

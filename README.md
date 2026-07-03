@@ -1,9 +1,17 @@
 # FluxRoute
 
 FluxRoute is a Solana-native routing layer for AI agents that need to call paid
-HTTP microservices through one MCP-facing integration. The API negotiates x402
-payment requirements, verifies SOL or USDC-SPL payments on-chain, proxies the
-verified request to the provider, and records spend/earnings ledgers.
+HTTP microservices through one MCP-facing integration. The API negotiates
+x402-style payment requirements, verifies SOL or USDC-SPL payments on-chain,
+proxies verified requests to provider services, and records spend/earnings
+ledgers.
+
+Production domains:
+
+- Landing: `https://fluxroute.xyz`
+- Dashboard: `https://dashboard.fluxroute.xyz`
+- API: `https://api.fluxroute.xyz`
+- Repository: `https://github.com/FluxRouteOfficial/FluxRoute`
 
 ## Monorepo Layout
 
@@ -14,16 +22,25 @@ apps/mcp-server       MCP stdio server for agent integrations
 packages/database     Drizzle schema, migration runner, seed script
 packages/shared       Shared Zod schemas, constants, fee math, types
 packages/provider-sdk Provider-side x402 helpers and middleware
-fluxroute-landing     Standalone Next.js marketing site
+fluxroute-landing     Standalone Next.js marketing and docs site
 tests                 Vitest coverage for shared logic, SDK, migrations
 ```
+
+## Current Production Status
+
+The landing and dashboard are live. The API is Docker-ready but still needs a
+valid Railway deployment, Postgres, Redis, JWT keys, Solana RPC, and DNS for
+`api.fluxroute.xyz`.
+
+Do not treat Vercel preview URLs as canonical. Public links, SEO metadata, docs,
+and dashboard configuration should use the production domains above.
 
 ## Requirements
 
 - Node.js 20+ and npm 10+
 - PostgreSQL 15+
 - Redis 7+
-- Solana RPC endpoint
+- Solana RPC endpoint for production transaction verification
 - RS256 JWT key pair supplied through environment variables or runtime files
 
 ## Local Setup
@@ -47,8 +64,8 @@ Start dependencies and prepare the database:
 ```bash
 docker compose up -d postgres redis
 npm run build:packages
-npm run migrate -w @fluxroute/database
-npm run seed -w @fluxroute/database
+npm run migrate
+npm run seed
 ```
 
 Run services:
@@ -67,12 +84,13 @@ See `.env.example` for the full list. Production must set:
 - `DATABASE_URL`
 - `REDIS_URL`
 - `JWT_PRIVATE_KEY` and `JWT_PUBLIC_KEY`, or `JWT_PRIVATE_KEY_PATH` and `JWT_PUBLIC_KEY_PATH`
-- `JWT_ISSUER`
+- `JWT_ISSUER=fluxroute.xyz`
 - `SOLANA_RPC_URL`
 - `USDC_MINT`
-- `CORS_ORIGIN`
-- `NEXT_PUBLIC_API_URL`
-- `NEXT_PUBLIC_SITE_URL`
+- `CORS_ORIGIN=https://fluxroute.xyz,https://www.fluxroute.xyz,https://dashboard.fluxroute.xyz`
+- `NEXT_PUBLIC_API_URL=https://api.fluxroute.xyz`
+- `NEXT_PUBLIC_SITE_URL=https://fluxroute.xyz`
+- `NEXT_PUBLIC_MARKETING_URL=https://fluxroute.xyz`
 
 Optional hardening knobs:
 
@@ -95,11 +113,11 @@ covers fee math, shared validation, provider SDK behavior, and migration safety.
 
 ## Database Migrations
 
-Migrations live in `packages/database/migrations`. From a clean environment:
+Migrations live in `packages/database/migrations`.
 
 ```bash
 npm run build -w @fluxroute/database
-npm run migrate -w @fluxroute/database
+npm run migrate
 ```
 
 The initial migration creates users, API keys, managed wallets, budget configs,
@@ -108,24 +126,27 @@ unique transaction signatures and one ledger row per user/provider per day.
 
 ## Deployment
 
-Docker Compose is provided for a single-host deployment:
+Use Vercel for the two Next.js apps:
 
-```bash
-JWT_PRIVATE_KEY="$(cat private.pem)" \
-JWT_PUBLIC_KEY="$(cat public.pem)" \
-SOLANA_RPC_URL="https://your-rpc.example" \
-CORS_ORIGIN="https://dashboard.example.com" \
-docker compose up --build
-```
+- Landing project root: `fluxroute-landing`
+- Dashboard project root: `apps/dashboard`
+
+Use Railway or another Node/Docker host for the Fastify API. The API requires:
+
+- managed Postgres
+- managed Redis
+- production Solana RPC
+- RS256 JWT keys
+- exact CORS origins
+- TLS on `https://api.fluxroute.xyz`
 
 Before exposing production traffic:
 
-- Run database migrations against the production database.
-- Set non-default Postgres credentials and managed secrets.
-- Use a private, quota-backed Solana RPC provider.
-- Set `CORS_ORIGIN` to exact deployed frontend origins.
+- Run database migrations against production Postgres.
+- Set non-default managed secrets.
+- Use a quota-backed Solana RPC provider.
 - Keep `ALLOW_INSECURE_PROVIDER_URLS=false`.
-- Put the API behind TLS and platform-level request logging/metrics.
+- Verify `GET https://api.fluxroute.xyz/api/health`.
 
 ## Security Notes
 
@@ -133,19 +154,12 @@ Before exposing production traffic:
 - JWTs use RS256.
 - API keys are stored as bcrypt hashes and checked for active/expired state.
 - Payment execution verifies on-chain recipient, amount, memo, and replay status.
-- Provider proxying rejects protocol-relative endpoints and requires HTTPS unless
-  explicitly disabled for local development.
-- Generated PEM keys, `.env*`, logs, build artifacts, and local helper scripts
-  are ignored by Git.
+- Provider proxying requires HTTPS unless explicitly disabled for local development.
+- Generated PEM keys, `.env*`, logs, build artifacts, and local helper scripts are ignored by Git.
+- Wallet auth currently accepts caller-provided nonces; server-issued nonce persistence should be added before treating wallet login as fully hardened.
 
-## Deployment On Vercel
+## Launch Operations
 
-For the public marketing site, create a Vercel project with Root Directory set
-to `fluxroute-landing`.
-
-For the dashboard, create a separate Vercel project with Root Directory set to
-`apps/dashboard` and set `NEXT_PUBLIC_API_URL` to the deployed API URL.
-
-The Fastify API requires PostgreSQL, Redis, JWT keys, and a Solana RPC endpoint.
-Deploy it on a Node server/container platform, then point the dashboard and MCP
-server at that API.
+- See `PRODUCTION_AUDIT.md` for verified current state and risks.
+- See `RUNBOOK.md` for deployment, rollback, DNS, and incident response.
+- See `LAUNCH_READINESS_REPORT.md` for launch-readiness status and remaining blockers.

@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fluxroute.io";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fluxroute.xyz";
 
 export const metadata: Metadata = {
   title: "FluxRoute - MCP Routing for Solana Payments",

@@ -6,7 +6,7 @@ import { PageHeader, StatusPill } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
 const categories = ['all', 'image', 'text', 'data', 'compute', 'finance', 'audio', 'search', 'code'];
-const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.fluxroute.xyz';
 
 type RegistryService = {
   id: string;

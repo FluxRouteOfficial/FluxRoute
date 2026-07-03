@@ -79,7 +79,7 @@ export async function authRoutes(app: FastifyInstance) {
       let [user] = await db.select().from(users).where(eq(users.walletAddress, walletAddress)).limit(1);
       if (!user) {
         [user] = await db.insert(users).values({
-          email: `${walletAddress.slice(0, 8)}@wallet.fluxroute.io`,
+          email: `${walletAddress.slice(0, 8)}@wallet.fluxroute.xyz`,
           walletAddress,
           walletMode: 'byo',
         }).returning();

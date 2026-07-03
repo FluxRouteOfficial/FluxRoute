@@ -46,8 +46,8 @@ export default function PrivacyPage() {
         </p>
         <p>
           No system is perfectly secure. Report vulnerabilities to{" "}
-          <a className="text-brand hover:text-brand-strong" href="mailto:security@fluxroute.io">
-            security@fluxroute.io
+          <a className="text-brand hover:text-brand-strong" href="mailto:security@fluxroute.xyz">
+            security@fluxroute.xyz
           </a>
           .
         </p>
@@ -64,8 +64,8 @@ export default function PrivacyPage() {
       <LegalSection heading="Contact">
         <p>
           Questions about this policy? Email{" "}
-          <a className="text-brand hover:text-brand-strong" href="mailto:hello@fluxroute.io">
-            hello@fluxroute.io
+          <a className="text-brand hover:text-brand-strong" href="mailto:hello@fluxroute.xyz">
+            hello@fluxroute.xyz
           </a>
           .
         </p>

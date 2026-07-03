@@ -31,11 +31,11 @@ export function CTA() {
                 Connect an agent to the API, register provider services, and verify Solana payments per call.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <Button href="/dashboard" variant="brand" size="lg">
-                  Get API key
+                <Button href="https://dashboard.fluxroute.xyz/dashboard/settings" variant="brand" size="lg">
+                  Open dashboard
                   <ArrowRight size={18} />
                 </Button>
-                <Button href="#developers" variant="secondary" size="lg">
+                <Button href="/docs" variant="secondary" size="lg">
                   Read documentation
                 </Button>
               </div>

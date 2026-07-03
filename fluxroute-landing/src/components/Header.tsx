@@ -13,6 +13,7 @@ const navLinks = [
   { label: "How It Works", href: "#how-it-works" },
   { label: "Services", href: "#services" },
   { label: "Developers", href: "#developers" },
+  { label: "Docs", href: "/docs" },
   { label: "Pricing", href: "#pricing" },
 ];
 
@@ -57,11 +58,11 @@ export function Header() {
 
             <div className="hidden items-center gap-2 md:flex">
               <ThemeToggle />
-              <Button href="#developers" variant="ghost" size="sm">
+              <Button href="/docs" variant="ghost" size="sm">
                 Docs
               </Button>
-              <Button href="#get-started" variant="brand" size="sm">
-                Connect Wallet
+              <Button href="https://dashboard.fluxroute.xyz/dashboard/settings" variant="brand" size="sm">
+                Open Dashboard
               </Button>
             </div>
 
@@ -102,7 +103,7 @@ export function Header() {
                   </a>
                 ))}
                 <Button href="#get-started" variant="brand" size="md" className="mt-2 w-full">
-                  Connect Wallet
+                  Open Dashboard
                 </Button>
               </nav>
             </Container>

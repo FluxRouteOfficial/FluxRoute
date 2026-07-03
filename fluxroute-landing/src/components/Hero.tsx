@@ -58,13 +58,13 @@ export function Hero() {
             </motion.p>
 
             <motion.div variants={staggerItem} className="mt-8 flex flex-wrap gap-3">
-              <Button href="#get-started" variant="brand" size="lg">
+              <Button href="/docs#quickstart" variant="brand" size="lg">
                 Start building
                 <ArrowRight size={18} />
               </Button>
-              <Button href="#how-it-works" variant="secondary" size="lg">
+              <Button href="/docs" variant="secondary" size="lg">
                 <BookOpen size={17} />
-                How it works
+                Read docs
               </Button>
             </motion.div>
 

@@ -63,8 +63,8 @@ export default function TermsPage() {
       <LegalSection heading="Contact">
         <p>
           Questions about these terms? Email{" "}
-          <a className="text-brand hover:text-brand-strong" href="mailto:hello@fluxroute.io">
-            hello@fluxroute.io
+          <a className="text-brand hover:text-brand-strong" href="mailto:hello@fluxroute.xyz">
+            hello@fluxroute.xyz
           </a>
           .
         </p>

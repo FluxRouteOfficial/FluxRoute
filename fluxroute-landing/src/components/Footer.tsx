@@ -2,9 +2,9 @@ import { Github, Twitter } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Logo } from "@/components/Logo";
 
-const GITHUB_URL = "https://github.com/fluxroute";
+const GITHUB_URL = "https://github.com/FluxRouteOfficial/FluxRoute";
 const X_URL = "https://x.com/fluxroute";
-const CONTACT_EMAIL = "hello@fluxroute.io";
+const CONTACT_EMAIL = "hello@fluxroute.xyz";
 
 type FooterLink = { label: string; href: string; external?: boolean };
 
@@ -15,14 +15,15 @@ const columns: { title: string; links: FooterLink[] }[] = [
       { label: "How it works", href: "/#how-it-works" },
       { label: "Service registry", href: "/#services" },
       { label: "Developers", href: "/#developers" },
+      { label: "Docs", href: "/docs" },
       { label: "Pricing", href: "/#pricing" },
     ],
   },
   {
     title: "Developers",
     links: [
-      { label: "Quick start", href: "/#developers" },
-      { label: "Provider SDK", href: "/#developers" },
+      { label: "Quick start", href: "/docs#quickstart" },
+      { label: "Provider SDK", href: "/docs#provider-sdk" },
       { label: "Source on GitHub", href: GITHUB_URL, external: true },
     ],
   },

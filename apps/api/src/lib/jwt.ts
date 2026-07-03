@@ -24,13 +24,13 @@ const publicKey = await importSPKI(publicKeyPem, 'RS256');
 export async function signToken(payload: Record<string, unknown>) {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: 'RS256' })
-    .setIssuer(process.env.JWT_ISSUER || 'fluxroute.io')
+    .setIssuer(process.env.JWT_ISSUER || 'fluxroute.xyz')
     .setExpirationTime(process.env.JWT_EXPIRY || '1h')
     .setIssuedAt()
     .sign(privateKey);
 }
 
 export async function verifyToken(token: string) {
-  const { payload } = await jwtVerify(token, publicKey, { issuer: process.env.JWT_ISSUER || 'fluxroute.io' });
+  const { payload } = await jwtVerify(token, publicKey, { issuer: process.env.JWT_ISSUER || 'fluxroute.xyz' });
   return payload;
 }

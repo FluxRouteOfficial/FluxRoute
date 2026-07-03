@@ -13,6 +13,9 @@
     "build:packages": "npm run build -w @fluxroute/shared && npm run build -w @fluxroute/database && npm run build -w @fluxroute/provider-sdk",
     "lint": "npm run lint --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
+    "migrate": "npm run migrate -w @fluxroute/database",
+    "seed": "npm run seed -w @fluxroute/database",
+    "security:audit": "npm audit --audit-level=high",
     "pretest": "npm run build:packages",
     "test": "vitest run"
   },

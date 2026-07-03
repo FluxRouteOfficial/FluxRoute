@@ -39,4 +39,4 @@ npm start
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Site URL for SEO, sitemap, and Open Graph tags | `https://fluxroute.io` |
+| `NEXT_PUBLIC_SITE_URL` | Site URL for SEO, sitemap, and Open Graph tags | `https://fluxroute.xyz` |

@@ -1,4 +1,4 @@
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fluxroute.io";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fluxroute.xyz";
 
 const structuredData = {
   "@context": "https://schema.org",

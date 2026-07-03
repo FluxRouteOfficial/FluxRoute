@@ -8,6 +8,7 @@ const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', displ
 export const metadata: Metadata = {
   title: 'FluxRoute Dashboard',
   description: 'Manage your AI agent services, spending, and wallet',
+  robots: { index: false, follow: false },
 };
 
 const themeInitScript = `
