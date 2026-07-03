@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Logo, LogoMark } from '@/components/Logo';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { AuthGate, clearToken } from '@/components/auth/AuthGate';
 import { cn } from '@/lib/utils';
 
 const marketingUrl = process.env.NEXT_PUBLIC_MARKETING_URL || 'https://fluxroute.xyz';
@@ -96,8 +97,14 @@ function WalletChip() {
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  function signOut() {
+    clearToken();
+    window.location.href = '/login';
+  }
+
   return (
-    <div className="flex h-screen overflow-hidden bg-canvas">
+    <AuthGate>
+      <div className="flex h-screen overflow-hidden bg-canvas">
       {/* Desktop sidebar */}
       <aside className="hidden w-64 flex-shrink-0 flex-col border-r border-line bg-panel/40 backdrop-blur-xl lg:flex">
         <div className="flex h-16 items-center border-b border-line px-5">
@@ -117,7 +124,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <ExternalLink size={14} />
             Marketing site
           </Link>
-          <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-faint transition-colors hover:bg-panel-2 hover:text-ink">
+          <button
+            type="button"
+            onClick={signOut}
+            className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-faint transition-colors hover:bg-panel-2 hover:text-ink"
+          >
             <LogOut size={14} />
             Sign out
           </button>
@@ -146,6 +157,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </div>
             <div className="space-y-2 p-3">
               <WalletChip />
+              <button
+                type="button"
+                onClick={signOut}
+                className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-faint transition-colors hover:bg-panel-2 hover:text-ink"
+              >
+                <LogOut size={14} />
+                Sign out
+              </button>
             </div>
           </aside>
         </div>
@@ -186,6 +205,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <div className="mx-auto max-w-6xl animate-fade-in px-4 py-6 md:px-8 md:py-8">{children}</div>
         </main>
       </div>
-    </div>
+      </div>
+    </AuthGate>
   );
 }
