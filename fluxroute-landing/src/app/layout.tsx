@@ -53,14 +53,13 @@ export const viewport: Viewport = {
 
 /**
  * Applied before paint to prevent a flash of the wrong theme.
- * Honours an explicit user choice in localStorage, otherwise the OS setting.
+ * Honours an explicit user choice in localStorage, otherwise defaults to light.
  */
 const themeInitScript = `
 (function () {
   try {
     var stored = localStorage.getItem('fluxroute-theme');
-    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var dark = stored ? stored === 'dark' : prefersDark;
+    var dark = stored === 'dark';
     document.documentElement.classList.toggle('dark', dark);
     document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
   } catch (e) {}

@@ -18,6 +18,8 @@ import { Logo, LogoMark } from '@/components/Logo';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { cn } from '@/lib/utils';
 
+const marketingUrl = process.env.NEXT_PUBLIC_MARKETING_URL || 'https://fluxroute.vercel.app';
+
 const navSections = [
   {
     title: 'Consume',
@@ -101,7 +103,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Desktop sidebar */}
       <aside className="hidden w-64 flex-col border-r border-line bg-panel/60 backdrop-blur lg:flex">
         <div className="flex h-16 items-center border-b border-line px-6">
-          <Link href="/dashboard" aria-label="FluxRoute" className="rounded-md">
+          <Link href={marketingUrl} aria-label="FluxRoute home" className="rounded-md">
             <Logo />
           </Link>
         </div>
@@ -125,7 +127,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           />
           <aside className="absolute left-0 top-0 flex h-full w-72 animate-fade-in flex-col border-r border-line bg-panel">
             <div className="flex h-16 items-center justify-between border-b border-line px-6">
-              <Logo />
+              <Link href={marketingUrl} aria-label="FluxRoute home" className="rounded-md" onClick={() => setMobileOpen(false)}>
+                <Logo />
+              </Link>
               <button onClick={() => setMobileOpen(false)} aria-label="Close" className="text-dim">
                 <X size={20} />
               </button>
@@ -147,7 +151,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             >
               <Menu size={18} />
             </button>
-            <LogoMark className="h-7 w-7" />
+            <Link href={marketingUrl} aria-label="FluxRoute home" className="rounded-md">
+              <LogoMark className="h-7 w-7" />
+            </Link>
           </div>
           <div className="hidden text-sm text-faint lg:block">
             Solana mainnet - <span className="text-faint">configure API auth</span>

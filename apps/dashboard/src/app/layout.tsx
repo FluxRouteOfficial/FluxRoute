@@ -14,8 +14,7 @@ const themeInitScript = `
 (function () {
   try {
     var stored = localStorage.getItem('fluxroute-theme');
-    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var dark = stored ? stored === 'dark' : prefersDark;
+    var dark = stored === 'dark';
     document.documentElement.classList.toggle('dark', dark);
     document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
   } catch (e) {}
