@@ -20,7 +20,8 @@ Report date: 2026-07-03
 
 ## Routes Tested
 
-- Tested live: `/` on `fluxroute.xyz`, `/dashboard` on `dashboard.fluxroute.xyz`.
+- Tested live after deployment: `/`, `/docs`, and `/sitemap.xml` on `fluxroute.xyz`.
+- Tested live after deployment: `/dashboard` and `/dashboard/services` on `dashboard.fluxroute.xyz`.
 - Pending after deployment: `https://api.fluxroute.xyz/api/health`, API auth, registry, payment, and wallet routes.
 
 ## Dashboard Routes
@@ -68,3 +69,14 @@ Report date: 2026-07-03
 - `cd fluxroute-landing && npm run lint`: passed.
 - `cd fluxroute-landing && npm run build`: passed and generated `/docs`.
 - `npm audit --audit-level=high`: failed with remaining advisories that require breaking upgrades.
+
+## Production Smoke Results
+
+- `GET https://fluxroute.xyz/`: 200.
+- `GET https://fluxroute.xyz/docs`: 200.
+- `GET https://fluxroute.xyz/sitemap.xml`: 200.
+- `GET https://dashboard.fluxroute.xyz/dashboard`: 200.
+- `GET https://dashboard.fluxroute.xyz/dashboard/services`: 200.
+- Dashboard response includes `X-Frame-Options: DENY` and `X-Content-Type-Options: nosniff`.
+- Dashboard HTML includes `noindex`.
+- `GET https://api.fluxroute.xyz/api/health`: failed because `api.fluxroute.xyz` does not resolve.
