@@ -13,12 +13,13 @@ import {
   Settings,
   Wallet,
   X,
+  ExternalLink,
 } from 'lucide-react';
 import { Logo, LogoMark } from '@/components/Logo';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { cn } from '@/lib/utils';
 
-const marketingUrl = process.env.NEXT_PUBLIC_MARKETING_URL || 'https://fluxroute.vercel.app';
+const marketingUrl = process.env.NEXT_PUBLIC_MARKETING_URL || 'https://fluxroute.xyz';
 
 const navSections = [
   {
@@ -42,13 +43,13 @@ const navSections = [
 function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
   return (
-    <nav className="flex-1 space-y-6 overflow-y-auto p-4 scrollbar-none">
+    <nav className="flex-1 space-y-6 overflow-y-auto px-3 py-4 scrollbar-none">
       {navSections.map((section) => (
         <div key={section.title}>
-          <p className="px-3 pb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-faint">
+          <p className="px-3 pb-1.5 text-[0.625rem] font-semibold uppercase tracking-[0.15em] text-faint">
             {section.title}
           </p>
-          <div className="space-y-1">
+          <div className="space-y-0.5">
             {section.items.map((item) => {
               const active = pathname === item.href;
               return (
@@ -58,16 +59,13 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
                   onClick={onNavigate}
                   aria-current={active ? 'page' : undefined}
                   className={cn(
-                    'group relative flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors',
+                    'group relative flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
                     active
-                      ? 'bg-brand/10 font-medium text-brand'
-                      : 'text-dim hover:bg-panel-2 hover:text-ink'
+                      ? 'bg-brand text-white shadow-sm shadow-brand/20'
+                      : 'text-faint hover:bg-panel-2 hover:text-ink'
                   )}
                 >
-                  {active && (
-                    <span className="absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-brand" />
-                  )}
-                  <item.icon size={18} strokeWidth={active ? 2 : 1.75} />
+                  <item.icon size={17} strokeWidth={active ? 2.5 : 1.75} />
                   {item.label}
                 </Link>
               );
@@ -81,16 +79,16 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
 
 function WalletChip() {
   return (
-    <div className="mx-4 mb-3 rounded-lg border border-line bg-panel-2/60 p-3">
+    <div className="mx-3 mb-2 rounded-xl border border-line bg-gradient-to-b from-panel-2/80 to-panel-2/40 p-3.5">
       <div className="flex items-center justify-between">
-        <span className="text-xs text-faint">Wallet</span>
-        <span className="inline-flex items-center gap-1 text-xs text-faint">
+        <span className="text-[0.625rem] font-semibold uppercase tracking-wider text-faint">Wallet</span>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-faint/10 px-2 py-0.5 text-[0.625rem] font-medium text-faint">
           <span className="h-1.5 w-1.5 rounded-full bg-faint" />
           Not connected
         </span>
       </div>
-      <p className="mt-1 font-mono text-sm font-semibold text-ink">0 SOL</p>
-      <p className="font-mono text-xs text-faint">Sign in to load balances</p>
+      <p className="mt-2 font-mono text-lg font-bold tracking-tight text-ink">0 SOL</p>
+      <p className="mt-0.5 font-mono text-[0.625rem] text-faint">Sign in to load balances</p>
     </div>
   );
 }
@@ -101,17 +99,26 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <div className="flex h-screen overflow-hidden bg-canvas">
       {/* Desktop sidebar */}
-      <aside className="hidden w-64 flex-col border-r border-line bg-panel/60 backdrop-blur lg:flex">
-        <div className="flex h-16 items-center border-b border-line px-6">
-          <Link href={marketingUrl} aria-label="FluxRoute home" className="rounded-md">
+      <aside className="hidden w-64 flex-shrink-0 flex-col border-r border-line bg-panel/40 backdrop-blur-xl lg:flex">
+        <div className="flex h-16 items-center border-b border-line px-5">
+          <Link href={marketingUrl} aria-label="FluxRoute home" className="rounded-md transition-opacity hover:opacity-80">
             <Logo />
           </Link>
         </div>
-        <NavLinks />
-        <WalletChip />
-        <div className="border-t border-line p-4">
-          <button className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-faint transition-colors hover:bg-panel-2 hover:text-ink">
-            <LogOut size={18} />
+        <div className="flex flex-1 flex-col overflow-hidden pt-3">
+          <NavLinks />
+        </div>
+        <div className="space-y-2 p-3">
+          <WalletChip />
+          <Link
+            href={marketingUrl}
+            className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-faint transition-colors hover:bg-panel-2 hover:text-ink"
+          >
+            <ExternalLink size={14} />
+            Marketing site
+          </Link>
+          <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-faint transition-colors hover:bg-panel-2 hover:text-ink">
+            <LogOut size={14} />
             Sign out
           </button>
         </div>
@@ -122,50 +129,61 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className="fixed inset-0 z-50 lg:hidden">
           <button
             aria-label="Close menu"
-            className="absolute inset-0 bg-surface-950/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-surface-950/50 backdrop-blur-sm animate-fade-in"
             onClick={() => setMobileOpen(false)}
           />
-          <aside className="absolute left-0 top-0 flex h-full w-72 animate-fade-in flex-col border-r border-line bg-panel">
-            <div className="flex h-16 items-center justify-between border-b border-line px-6">
+          <aside className="absolute left-0 top-0 flex h-full w-72 animate-slide-in flex-col border-r border-line bg-panel">
+            <div className="flex h-16 items-center justify-between border-b border-line px-5">
               <Link href={marketingUrl} aria-label="FluxRoute home" className="rounded-md" onClick={() => setMobileOpen(false)}>
                 <Logo />
               </Link>
-              <button onClick={() => setMobileOpen(false)} aria-label="Close" className="text-dim">
-                <X size={20} />
+              <button onClick={() => setMobileOpen(false)} aria-label="Close" className="rounded-md p-1.5 text-dim transition-colors hover:bg-panel-2 hover:text-ink">
+                <X size={18} />
               </button>
             </div>
-            <NavLinks onNavigate={() => setMobileOpen(false)} />
-            <WalletChip />
+            <div className="flex flex-1 flex-col overflow-hidden pt-3">
+              <NavLinks onNavigate={() => setMobileOpen(false)} />
+            </div>
+            <div className="space-y-2 p-3">
+              <WalletChip />
+            </div>
           </aside>
         </div>
       )}
 
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Topbar */}
-        <header className="flex h-16 flex-shrink-0 items-center justify-between border-b border-line bg-canvas/80 px-4 backdrop-blur md:px-8">
+        <header className="flex h-16 flex-shrink-0 items-center justify-between border-b border-line bg-canvas/90 px-4 backdrop-blur-xl md:px-8">
           <div className="flex items-center gap-3 lg:hidden">
             <button
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-line text-dim"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-line text-dim transition-colors hover:bg-panel-2 hover:text-ink"
             >
-              <Menu size={18} />
+              <Menu size={17} />
             </button>
             <Link href={marketingUrl} aria-label="FluxRoute home" className="rounded-md">
               <LogoMark className="h-7 w-7" />
             </Link>
           </div>
-          <div className="hidden text-sm text-faint lg:block">
-            Solana mainnet - <span className="text-faint">configure API auth</span>
+          <div className="hidden items-center gap-2 text-sm text-faint lg:flex">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-2.5 py-0.5 text-[0.625rem] font-medium text-brand">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+              Solana mainnet
+            </span>
+            <span className="text-faint">&middot;</span>
+            <span className="text-faint">configure API auth</span>
           </div>
           <div className="ml-auto flex items-center gap-2">
             <ThemeToggle />
-            <div className="h-8 w-8 rounded-full bg-gradient-to-br from-brand to-brand-strong" aria-hidden />
+            <div className="h-8 w-8 overflow-hidden rounded-full ring-2 ring-line transition-shadow hover:ring-brand/40">
+              <div className="h-full w-full bg-gradient-to-br from-brand to-brand-strong" />
+            </div>
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto p-4 md:p-8">
-          <div className="mx-auto max-w-6xl animate-fade-in">{children}</div>
+        <main className="flex-1 overflow-y-auto">
+          <div className="mx-auto max-w-6xl animate-fade-in px-4 py-6 md:px-8 md:py-8">{children}</div>
         </main>
       </div>
     </div>

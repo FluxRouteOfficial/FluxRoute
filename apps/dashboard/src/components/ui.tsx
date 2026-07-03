@@ -13,10 +13,10 @@ export function PageHeader({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight text-ink">{title}</h1>
-        {description && <p className="mt-1 text-sm text-dim">{description}</p>}
+        {description && <p className="mt-1.5 text-sm leading-relaxed text-dim">{description}</p>}
       </div>
       {action}
     </div>
@@ -43,9 +43,9 @@ export function StatCard({
   positive?: boolean;
 }) {
   return (
-    <div className="group card p-5 transition-colors hover:border-line-strong">
+    <div className="group card p-5 transition-all duration-200 hover:border-line-strong hover:shadow-elevate">
       <div className="mb-3 flex items-center justify-between">
-        <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-brand/10 text-brand">
+        <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-line bg-brand/10 text-brand ring-1 ring-brand/5 transition-shadow group-hover:ring-brand/20">
           <Icon size={17} />
         </span>
         {change && (
@@ -60,7 +60,7 @@ export function StatCard({
           </span>
         )}
       </div>
-      <p className="text-2xl font-semibold tracking-tight text-ink">{value}</p>
+      <p className="text-2xl font-bold tracking-tight text-ink">{value}</p>
       <p className="mt-1 text-sm text-faint">{label}</p>
     </div>
   );

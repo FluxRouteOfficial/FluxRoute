@@ -107,25 +107,28 @@ export default function ServicesPage() {
       </div>
 
       {services.length === 0 ? (
-        <div className="card flex flex-col items-center justify-center py-20 text-center">
-          <span className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg border border-line bg-panel-2 text-faint">
-            <PackageSearch size={22} />
-          </span>
-          <p className="text-sm font-medium text-ink">{emptyTitle}</p>
-          <p className="mt-1 max-w-md text-sm text-faint">
-            {error || 'Create a provider service through the authenticated API to make it appear here.'}
-          </p>
-          {(search || category !== 'all') && (
-            <button
-              onClick={() => {
-                setSearch('');
-                setCategory('all');
-              }}
-              className="mt-5 rounded-md border border-line px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-panel-2"
-            >
-              Clear filters
-            </button>
-          )}
+        <div className="card relative flex flex-col items-center justify-center overflow-hidden py-20 text-center">
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand/[0.02] to-transparent" />
+          <div className="relative">
+            <span className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-line bg-panel-2 shadow-sm">
+              <PackageSearch size={24} className="text-faint" />
+            </span>
+            <p className="text-base font-semibold text-ink">{emptyTitle}</p>
+            <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-faint">
+              {error || 'Create a provider service through the authenticated API to make it appear here.'}
+            </p>
+            {(search || category !== 'all') && (
+              <button
+                onClick={() => {
+                  setSearch('');
+                  setCategory('all');
+                }}
+                className="mt-6 inline-flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-panel-2"
+              >
+                Clear filters
+              </button>
+            )}
+          </div>
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

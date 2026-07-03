@@ -47,10 +47,12 @@ module.exports = {
       animation: {
         shimmer: 'shimmer 1.8s linear infinite',
         'fade-in': 'fadeIn 0.4s ease-out forwards',
+        'slide-in': 'slideIn 0.25s ease-out forwards',
       },
       keyframes: {
         shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
         fadeIn: { '0%': { opacity: '0', transform: 'translateY(6px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+        slideIn: { '0%': { transform: 'translateX(-100%)' }, '100%': { transform: 'translateX(0)' } },
       },
     },
   },
