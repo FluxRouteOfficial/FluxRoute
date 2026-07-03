@@ -46,8 +46,8 @@ export function DeveloperExperience() {
   return (
     <section className="py-24 md:py-32" id="developers">
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center">
-          <Reveal>
+        <div className="grid min-w-0 gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+          <Reveal className="min-w-0">
             <SectionLabel className="mb-4">Developer experience</SectionLabel>
             <h2 className="text-heading-1 md:text-display text-ink">
               Built for developers who ship
@@ -73,7 +73,7 @@ export function DeveloperExperience() {
             </ul>
           </Reveal>
 
-          <Reveal delay={0.1}>
+          <Reveal className="min-w-0" delay={0.1}>
             <CodeWindow
               tabs={[
                 { label: "agent.ts", filename: "agent.ts", code: consumerCode },

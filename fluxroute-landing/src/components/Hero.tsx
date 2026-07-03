@@ -30,9 +30,9 @@ export function Hero() {
       <GridBackdrop />
 
       <Container className="relative">
-        <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-12">
+        <div className="grid min-w-0 items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-12">
           {/* Copy column */}
-          <motion.div variants={staggerContainer} initial="hidden" animate="visible">
+          <motion.div className="min-w-0" variants={staggerContainer} initial="hidden" animate="visible">
             <motion.div variants={staggerItem}>
               <Badge dot className="mb-6">
                 Solana-native infrastructure
@@ -90,7 +90,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-            className="relative"
+            className="relative min-w-0"
           >
             <div className="relative">
               <CodeWindow
