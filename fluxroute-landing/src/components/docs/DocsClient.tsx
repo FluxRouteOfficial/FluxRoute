@@ -33,7 +33,7 @@ const sections: Section[] = [
     summary: "Run the monorepo locally with Postgres, Redis, JWT keys, and the API.",
     body: [
       "Install root workspaces, start Postgres and Redis, build packages, run migrations, then start the API, dashboard, MCP server, and landing app as separate processes.",
-      "Production requires a deployed API URL. Until api.fluxroute.xyz is live, dashboard registry calls will show an API-unavailable empty state.",
+      "Production uses https://api.fluxroute.xyz for the API and https://dashboard.fluxroute.xyz for the dashboard. Local setup should keep secrets in .env.local and never commit generated keys.",
     ],
     code: `npm install
 cd fluxroute-landing && npm install && cd ..
@@ -160,7 +160,7 @@ const provider = new FluxRouteProvider({
     summary: "Production security depends on strict CORS, RS256 keys, hashed API keys, TLS providers, Redis, and reliable RPC.",
     body: [
       "The API sets secure baseline headers, enforces Fastify rate limiting, hashes passwords and API keys, rejects insecure provider URLs by default, and stores unique transaction signatures.",
-      "Before public launch, rotate the shared Railway token, use a production Solana RPC endpoint, deploy api.fluxroute.xyz, and add server-issued wallet login nonces.",
+      "After launch setup, rotate shared tokens and add server-issued wallet login nonces before treating wallet login as fully hardened.",
     ],
     related: ["production-checklist", "troubleshooting"],
   },
@@ -170,7 +170,7 @@ const provider = new FluxRouteProvider({
     title: "Production checklist",
     summary: "A launch requires DNS, Railway API deployment, migrations, Vercel envs, and smoke tests.",
     body: [
-      "Landing and dashboard domains currently resolve. API DNS is not live until api.fluxroute.xyz points to the Railway service and the service has Postgres, Redis, JWT keys, and Solana RPC configured.",
+      "Landing, dashboard, and API domains currently resolve. The Railway API service has Postgres, Redis, JWT keys, Helius Solana RPC, restricted CORS, and migrations configured.",
       "Run lint, typecheck, tests, builds, route smoke tests, API health checks, and browser checks after every production deploy.",
     ],
     code: `npm run lint
@@ -244,8 +244,8 @@ export function DocsClient() {
   }, [query]);
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[17rem_minmax(0,1fr)]">
-      <aside className="lg:sticky lg:top-24 lg:h-[calc(100vh-7rem)] lg:overflow-y-auto">
+    <div className="grid gap-6 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-8">
+      <aside className="min-w-0 overflow-hidden lg:sticky lg:top-24 lg:h-[calc(100vh-7rem)] lg:overflow-y-auto">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-faint" />
           <input
@@ -260,16 +260,16 @@ export function DocsClient() {
           </kbd>
         </div>
 
-        <nav className="mt-6 space-y-6" aria-label="Docs">
+        <nav className="mt-4 flex max-w-full gap-2 overflow-x-auto pb-2 lg:mt-6 lg:block lg:space-y-6 lg:overflow-visible lg:pb-0" aria-label="Docs">
           {groups.map((group) => (
-            <div key={group}>
-              <p className="px-2 text-xs font-semibold uppercase tracking-[0.12em] text-faint">{group}</p>
-              <div className="mt-2 space-y-1">
+            <div key={group} className="flex shrink-0 gap-2 lg:block">
+              <p className="hidden px-2 text-xs font-semibold uppercase tracking-[0.12em] text-faint lg:block">{group}</p>
+              <div className="flex gap-2 lg:mt-2 lg:block lg:space-y-1">
                 {sections.filter((section) => section.group === group).map((section) => (
                   <a
                     key={section.id}
                     href={`#${section.id}`}
-                    className="block rounded-md px-2 py-1.5 text-sm text-dim transition-colors hover:bg-panel-2 hover:text-ink"
+                    className="block whitespace-nowrap rounded-md border border-line bg-panel px-3 py-2 text-sm text-dim transition-colors hover:bg-panel-2 hover:text-ink lg:border-0 lg:bg-transparent lg:px-2 lg:py-1.5"
                   >
                     {section.title}
                   </a>

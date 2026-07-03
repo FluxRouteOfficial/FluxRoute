@@ -61,7 +61,7 @@ export function Header() {
               <Button href="/docs" variant="ghost" size="sm">
                 Docs
               </Button>
-              <Button href="https://dashboard.fluxroute.xyz/dashboard/settings" variant="brand" size="sm">
+              <Button href="https://dashboard.fluxroute.xyz/dashboard" variant="brand" size="sm">
                 Open Dashboard
               </Button>
             </div>
@@ -102,7 +102,7 @@ export function Header() {
                     {link.label}
                   </a>
                 ))}
-                <Button href="#get-started" variant="brand" size="md" className="mt-2 w-full">
+                <Button href="https://dashboard.fluxroute.xyz/dashboard" variant="brand" size="md" className="mt-2 w-full">
                   Open Dashboard
                 </Button>
               </nav>

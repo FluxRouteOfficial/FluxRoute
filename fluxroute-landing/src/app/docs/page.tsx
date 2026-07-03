@@ -22,17 +22,17 @@ export default function DocsPage() {
   return (
     <>
       <Header />
-      <section className="border-b border-line bg-panel/40 pb-12 pt-28">
+      <section className="border-b border-line bg-panel/40 pb-8 pt-24 md:pb-12 md:pt-28">
         <Container>
           <p className="text-sm font-semibold uppercase tracking-[0.14em] text-brand">Documentation</p>
-          <h1 className="mt-4 max-w-3xl text-display text-ink">Build paid AI microservice routes with FluxRoute.</h1>
-          <p className="mt-5 max-w-2xl text-body-lg text-dim">
+          <h1 className="mt-4 max-w-3xl text-heading-1 text-ink md:text-display">Build paid AI microservice routes with FluxRoute.</h1>
+          <p className="mt-4 max-w-2xl text-body text-dim md:mt-5 md:text-body-lg">
             Accurate implementation docs for the current FluxRoute API, MCP server, payment flow, provider SDK,
             dashboard behavior, and launch operations.
           </p>
         </Container>
       </section>
-      <section className="py-10 md:py-14">
+      <section className="py-6 md:py-14">
         <Container>
           <DocsClient />
         </Container>

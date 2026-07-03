@@ -105,10 +105,9 @@ export function Footer() {
           <p className="text-body-sm text-faint">(c) 2026 FluxRoute. Built on Solana.</p>
           <span className="inline-flex items-center gap-2 text-body-sm text-dim">
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
             </span>
-            All systems operational
+            Production domains live
           </span>
         </div>
       </Container>

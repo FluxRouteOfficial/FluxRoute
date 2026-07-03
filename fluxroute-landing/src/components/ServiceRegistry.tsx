@@ -28,30 +28,6 @@ const categories = [
   { label: "Audio", count: 0, icon: AudioLines },
 ];
 
-const sampleServices = [
-  {
-    name: "Audio transcription API",
-    provider: "Example provider",
-    description: "A provider-hosted endpoint exposed through x402 payment negotiation.",
-    price: "0.001",
-    endpoints: 4,
-  },
-  {
-    name: "Image generation API",
-    provider: "Example provider",
-    description: "A metered image endpoint with transparent per-call pricing.",
-    price: "0.005",
-    endpoints: 2,
-  },
-  {
-    name: "Data enrichment API",
-    provider: "Example provider",
-    description: "A JSON API that agents can call after payment verification.",
-    price: "0.0001",
-    endpoints: 12,
-  },
-];
-
 const marquee = [
   "Text",
   "Image",
@@ -99,36 +75,15 @@ export function ServiceRegistry() {
           ))}
         </motion.div>
 
-        {/* Featured service cards */}
-        <div className="grid gap-4 md:grid-cols-3">
-          {sampleServices.map((service, i) => (
-            <Reveal key={service.name} delay={i * 0.07}>
-              <article className="group h-full rounded-xl border border-line bg-panel p-5 transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-elevate">
-                <div className="mb-3 flex items-center justify-between">
-                  <span className="text-caption font-medium uppercase tracking-wider text-faint">
-                    {service.provider}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 text-caption text-brand">
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
-                      <span className="relative h-1.5 w-1.5 rounded-full bg-brand" />
-                    </span>
-                    Online
-                  </span>
-                </div>
-                <h3 className="text-body font-semibold text-ink">{service.name}</h3>
-                <p className="mt-1.5 text-body-sm text-dim">{service.description}</p>
-                <div className="mt-4 flex items-center justify-between border-t border-line pt-3">
-                  <span className="font-mono text-body-sm text-ink">
-                    {service.price} SOL
-                    <span className="text-faint"> / call</span>
-                  </span>
-                  <span className="text-caption text-faint">{service.endpoints} endpoints</span>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal>
+          <div className="rounded-xl border border-dashed border-line bg-panel p-6 text-center md:p-8">
+            <p className="text-body font-semibold text-ink">No public provider services are listed yet.</p>
+            <p className="mx-auto mt-2 max-w-2xl text-body-sm text-dim">
+              The production registry is connected to the live API. New provider services will appear here after
+              authenticated providers publish real endpoints through the dashboard or API.
+            </p>
+          </div>
+        </Reveal>
 
         {/* Provider marquee */}
         <div className="mt-12 overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
@@ -143,7 +98,7 @@ export function ServiceRegistry() {
 
         <div className="mt-10 text-center">
           <a
-            href="/dashboard"
+            href="https://dashboard.fluxroute.xyz/dashboard"
             className="inline-flex items-center gap-1.5 text-body-sm font-medium text-brand transition-colors hover:text-brand-strong"
           >
             Open dashboard
