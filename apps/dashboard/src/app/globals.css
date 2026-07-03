@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --canvas: 250 248 245;
+    --panel: 255 255 255;
+    --panel-2: 245 245 243;
+    --line: 232 224 212;
+    --line-strong: 212 200 181;
+    --ink: 26 25 24;
+    --dim: 92 90 84;
+    --faint: 120 117 110;
+    --brand: 13 149 123;
+    --brand-strong: 15 119 100;
+    --brand-contrast: 255 255 255;
+    --danger: 220 38 38;
+    --shadow: 42 33 27;
+  }
+
+  .dark {
+    --canvas: 18 16 13;
+    --panel: 28 24 20;
+    --panel-2: 36 31 26;
+    --line: 48 42 35;
+    --line-strong: 66 58 48;
+    --ink: 243 239 232;
+    --dim: 178 170 158;
+    --faint: 138 131 121;
+    --brand: 45 212 176;
+    --brand-strong: 95 234 201;
+    --brand-contrast: 18 16 13;
+    --danger: 248 113 113;
+    --shadow: 0 0 0;
+  }
+
+  * {
+    border-color: rgb(var(--line));
+  }
+
+  body {
+    @apply bg-canvas text-ink antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  ::selection {
+    background-color: rgb(var(--brand) / 0.22);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--brand));
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-line bg-panel;
+  }
+
+  .input {
+    @apply w-full rounded-md border border-line bg-panel px-3 py-2 text-sm text-ink placeholder:text-faint transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20;
+  }
+
+  .label {
+    @apply mb-1.5 block text-xs font-medium text-dim;
+  }
+}
+
+@layer utilities {
+  .skeleton {
+    background: linear-gradient(90deg, rgb(var(--panel-2)) 25%, rgb(var(--line)) 37%, rgb(var(--panel-2)) 63%);
+    background-size: 200% 100%;
+    @apply animate-shimmer;
+  }
+  .scrollbar-none { scrollbar-width: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+}

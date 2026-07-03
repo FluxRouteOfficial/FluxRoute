@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================================
+   FluxRoute - semantic theme tokens
+   Values are space-separated RGB channels so Tailwind's `<alpha-value>`
+   utilities (e.g. bg-brand/10) resolve correctly.
+   ========================================================================== */
+@layer base {
+  :root {
+    /* Light - warm mineral paper */
+    --canvas: 250 248 245; /* sol-50 */
+    --panel: 255 255 255;
+    --panel-2: 245 245 243; /* surface-100 */
+    --line: 232 224 212; /* sol-200 */
+    --line-strong: 212 200 181; /* sol-300 */
+    --ink: 26 25 24; /* surface-900 */
+    --dim: 92 90 84; /* surface-600 */
+    --faint: 120 117 110; /* surface-500 */
+    --brand: 13 149 123; /* accent-600 */
+    --brand-strong: 15 119 100; /* accent-700 */
+    --brand-contrast: 255 255 255;
+    --shadow: 42 33 27; /* sol-950 */
+    --grid-line: 26 25 24;
+    --grid-opacity: 0.04;
+    --noise-opacity: 0.025;
+  }
+
+  .dark {
+    /* Dark - deep warm basalt */
+    --canvas: 18 16 13;
+    --panel: 28 24 20;
+    --panel-2: 36 31 26;
+    --line: 48 42 35;
+    --line-strong: 66 58 48;
+    --ink: 243 239 232; /* sol-100 */
+    --dim: 178 170 158;
+    --faint: 138 131 121;
+    --brand: 45 212 176; /* accent-400 */
+    --brand-strong: 95 234 201; /* accent-300 */
+    --brand-contrast: 18 16 13;
+    --shadow: 0 0 0;
+    --grid-line: 243 239 232;
+    --grid-opacity: 0.05;
+    --noise-opacity: 0.04;
+  }
+
+  * {
+    border-color: rgb(var(--line));
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  body {
+    @apply bg-canvas text-ink font-sans;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  ::selection {
+    background-color: rgb(var(--brand) / 0.22);
+    color: rgb(var(--ink));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--brand));
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+/* ============================================================================
+   Layout helpers
+   ========================================================================== */
+@layer components {
+  .section-padding {
+    @apply px-6 md:px-8 lg:px-12;
+  }
+
+  .section-container {
+    @apply max-w-content mx-auto;
+  }
+
+  /* Card surface with hairline border that adapts to theme */
+  .panel-card {
+    @apply rounded-xl border border-line bg-panel;
+  }
+}
+
+/* ============================================================================
+   Premium textures & decorative utilities
+   ========================================================================== */
+@layer utilities {
+  /* Fine engineering grid - communicates "infrastructure / routing" */
+  .bg-grid {
+    background-image: linear-gradient(
+        to right,
+        rgb(var(--grid-line) / var(--grid-opacity)) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        rgb(var(--grid-line) / var(--grid-opacity)) 1px,
+        transparent 1px
+      );
+    background-size: 56px 56px;
+  }
+
+  .bg-grid-sm {
+    background-image: linear-gradient(
+        to right,
+        rgb(var(--grid-line) / var(--grid-opacity)) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        rgb(var(--grid-line) / var(--grid-opacity)) 1px,
+        transparent 1px
+      );
+    background-size: 24px 24px;
+  }
+
+  .bg-dots {
+    background-image: radial-gradient(
+      rgb(var(--grid-line) / calc(var(--grid-opacity) * 2.4)) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+  }
+
+  /* Subtle fibre noise - adds a tactile, premium paper feel */
+  .texture-noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--noise-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Radial fade mask for backgrounds */
+  .mask-radial-fade {
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 75%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 75%);
+  }
+
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+  }
+
+  /* Brand mesh glow - restrained, single-hue, never a rainbow gradient */
+  .mesh-brand {
+    background:
+      radial-gradient(40% 50% at 18% 0%, rgb(var(--brand) / 0.18), transparent 70%),
+      radial-gradient(34% 44% at 82% 10%, rgb(var(--brand) / 0.12), transparent 70%);
+  }
+
+  /* Gradient hairline border via mask compositing */
+  .ring-gradient {
+    position: relative;
+  }
+  .ring-gradient::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      140deg,
+      rgb(var(--brand) / 0.5),
+      rgb(var(--line) / 0) 45%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Text gradient - single warm-to-brand sweep, used sparingly */
+  .text-brand-sweep {
+    background: linear-gradient(
+      120deg,
+      rgb(var(--ink)),
+      rgb(var(--brand-strong))
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Skeleton shimmer */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      rgb(var(--panel-2)) 25%,
+      rgb(var(--line)) 37%,
+      rgb(var(--panel-2)) 63%
+    );
+    background-size: 200% 100%;
+    @apply animate-shimmer;
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}

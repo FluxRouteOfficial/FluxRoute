@@ -1,0 +1,33 @@
+{
+  "name": "@fluxroute/api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fluxroute/database": "*",
+    "@fluxroute/shared": "*",
+    "fastify": "4.28.1",
+    "@fastify/cors": "9.0.1",
+    "@fastify/rate-limit": "9.1.0",
+    "jose": "5.6.3",
+    "bcryptjs": "2.4.3",
+    "@solana/web3.js": "1.95.3",
+    "drizzle-orm": "0.30.10",
+    "ioredis": "5.4.1",
+    "nanoid": "5.0.7",
+    "tweetnacl": "1.0.3",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "2.4.6",
+    "@types/node": "20.14.9",
+    "tsx": "4.16.2",
+    "typescript": "5.4.5"
+  }
+}

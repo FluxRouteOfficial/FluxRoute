@@ -1,0 +1,22 @@
+{
+  "name": "@fluxroute/database",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "migrate": "node dist/migrate.js",
+    "seed": "node dist/seed.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "pg": "8.11.5",
+    "drizzle-orm": "0.30.10"
+  },
+  "devDependencies": {
+    "@types/pg": "8.11.6",
+    "drizzle-kit": "0.21.4",
+    "typescript": "5.4.5"
+  }
+}
