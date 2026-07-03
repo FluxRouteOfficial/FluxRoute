@@ -21,7 +21,7 @@ await app.register(cors, {
           callback(null, true);
           return;
         }
-        callback(new Error('Origin not allowed'), false);
+        callback(null, false);
       }
     : false,
 });
